@@ -22,8 +22,27 @@ spec:
         env:
         - name: TEAMNAME
           value: "TEAM10"
+        - name: DB_USER 
+          valueFrom:
+            secretKeyRef:
+              name: middleware-secrets
+              key: DB_USER
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: middleware-secrets
+              key: DB_PASS
+        - name: AMQP_USER 
+          valueFrom:
+            secretKeyRef:
+              name: middleware-secrets
+              key: AMQP_USER
+        - name: AMQP_PASS
+          valueFrom:
+            secretKeyRef:
+              name: middleware-secrets
+              key: AMQP_PASS
         - name: MONGOHOST
-          value: "mongodb://user:password@mongodb-mongodb.ci.svc.cluster.local/db"
+          value: "mongodb://$(DB_USER):$(DB_PASS)@mongodb-mongodb.ci.svc.cluster.local/db"
         - name: RABBITMQHOST 
-          value: "amqp://user:password@rabbit-rabbitmq.ci.svc.cluster.local:5672/"
-
+          value: "amqp://$(AMQP_USER):$(AMQP_PASS)@rabbit-rabbitmq.ci.svc.cluster.local:5672/"
