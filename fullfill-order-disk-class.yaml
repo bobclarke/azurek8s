@@ -4,6 +4,4 @@ metadata:
   name: azurefile
 provisioner: kubernetes.io/azure-file
 parameters:
-  skuName: Standard_LRS
-  location: eastus
   storageAccount: team10storage

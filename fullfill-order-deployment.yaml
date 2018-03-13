@@ -1,0 +1,33 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: fullfill-order
+  labels:
+    app: fullfill-order
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fullfill-order
+  template:
+    metadata:
+      labels:
+        app: fullfill-order
+    spec:
+      volumes:
+        - name: volume
+          persistentVolumeClaim:
+            claimName: azurefile
+      containers:
+      - name: fulfillorderack
+        image: shanepeckham/fulfillorderack:v6
+        ports:
+        - containerPort: 8080
+        env:
+        - name: TEAMNAME
+          value: "TEAM10"
+        - name: MONGOHOST
+          value: "mongodb://your-moose-mongodb.default.svc.cluster.local"
+        volumeMounts:
+        - mountPath: "/orders"
+          name: volume
