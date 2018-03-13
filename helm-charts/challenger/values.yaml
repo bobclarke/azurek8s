@@ -1,17 +1,18 @@
-mongoImage: bitnami/mongodb:3.7.1-r0
-rabbitImage:
-
+### COMMON ######################################################
 serviceType: ClusterIP
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
 
 persistence:
   enabled: true
   accessMode: ReadWriteOnce
   size: 8Gi
 
-resources:
-  requests:
-    memory: 256Mi
-    cpu: 100m
+### MONGODB ######################################################
+mongoImage: bitnami/mongodb:3.7.1-r0
 
 livenessProbe:
   initialDelaySeconds: 30
@@ -25,3 +26,17 @@ readinessProbe:
   timeoutSeconds: 5
   failureThreshold: 6
   successThreshold: 1
+
+
+### RABBITMQ ######################################################
+rabbitImage: bitnami/rabbitmq:3.7.3-r0
+rabbitmqUsername: user
+rabbitmqNodePort: 5672
+rabbitmqNodeType: stats
+rabbitmqNodeName: rabbit
+rabbitmqVhost: /
+rabbitmqManagerPort: 15672
+rabbitmqDiskFreeLimit: '"6GiB"'
+nodeSelector: {}
+tolerations: []
+affinity: {}
