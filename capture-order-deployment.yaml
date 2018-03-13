@@ -1,0 +1,27 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: capture-order
+  labels:
+    app: capture-order
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: capture-order
+  template:
+    metadata:
+      labels:
+        app: capture-order
+    spec:
+      containers:
+      - name: captureorderack
+        image: shanepeckham/captureorderack:v6
+        ports:
+        - containerPort: 80
+        env:
+        - name: TEAMNAME
+          value: "TEAM10"
+        - name: MONGOHOST
+          value: "mongodb://your-moose-mongodb.default.svc.cluster.local:27017"
+
