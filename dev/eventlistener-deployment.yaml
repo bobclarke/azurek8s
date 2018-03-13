@@ -1,0 +1,28 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: eventlistener
+  labels:
+    app: eventlistener
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: eventlistener
+  template:
+    metadata:
+      labels:
+        app: eventlistener
+    spec:
+      containers:
+      - name: eventlistener
+        image: shanepeckham/rabbitmqlistenerack:v6
+        env:
+        - name: TEAMNAME
+          value: "TEAM10"
+        - name: MONGOHOST
+          value: "mongodb://user:password@mongodb-mongodb.ci.svc.cluster.local/db"
+        - name: RABBITMQHOST 
+          value: "amqp://user:password@rabbit-rabbitmq.ci.svc.cluster.local:5672/"
+        - name: PROCESSENDPOINT
+          value: "http://fulfillorder.ci.pod.cluster.local:8080/v1/order"

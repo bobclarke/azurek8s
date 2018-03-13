@@ -1,0 +1,29 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: fulfillorder
+  labels:
+    app: fulfillorder
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fulfillorder
+  template:
+    metadata:
+      labels:
+        app: fulfillorder
+    spec:
+      containers:
+      - name: fulfillorder
+        image: shanepeckham/fulfillorderack:v6
+        ports:
+        - containerPort: 8080
+        env:
+        - name: TEAMNAME
+          value: "TEAM10"
+        - name: MONGOHOST
+          value: "mongodb://user:password@mongodb-mongodb.ci.svc.cluster.local/db"
+        - name: RABBITMQHOST 
+          value: "amqp://user:password@rabbit-rabbitmq.ci.svc.cluster.local:5672/"
+

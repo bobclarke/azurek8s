@@ -1,0 +1,3 @@
+helm install --namespace ci --name mongodb \
+--set mongodbRootPassword=password,mongodbUsername=user,mongodbPassword=password,mongodbDatabase=db \
+    stable/mongodb

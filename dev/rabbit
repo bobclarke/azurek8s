@@ -1,0 +1,3 @@
+helm install --namespace ci --name rabbit \
+  --set rabbitmqUsername=user,rabbitmqPassword=password,rabbitmqErlangCookie=secretcookie \
+    stable/rabbitmq
