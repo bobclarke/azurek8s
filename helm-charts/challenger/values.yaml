@@ -1,0 +1,27 @@
+mongoImage: bitnami/mongodb:3.7.1-r0
+rabbitImage:
+
+serviceType: ClusterIP
+
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 8Gi
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
+
+livenessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+readinessProbe:
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
