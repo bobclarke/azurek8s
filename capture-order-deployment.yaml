@@ -5,7 +5,7 @@ metadata:
   labels:
     app: capture-order
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: capture-order
@@ -18,10 +18,10 @@ spec:
       - name: captureorderack
         image: shanepeckham/captureorderack:v6
         ports:
-        - containerPort: 80
+        - containerPort: 8080
         env:
         - name: TEAMNAME
           value: "TEAM10"
         - name: MONGOHOST
-          value: "mongodb://your-moose-mongodb.default.svc.cluster.local:27017"
+          value: "mongodb://your-moose-mongodb.default.svc.cluster.local"
 
