@@ -5,7 +5,7 @@ metadata:
   labels:
     app: capture-order
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: capture-order
@@ -24,4 +24,6 @@ spec:
           value: "TEAM10"
         - name: MONGOHOST
           value: "mongodb://your-moose-mongodb.default.svc.cluster.local"
+        - name: RABBITMQHOST
+          value: "amqp://brown-squid-rabbitmq.default.svc.cluster.local:5672"
 
