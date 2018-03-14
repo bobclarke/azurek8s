@@ -26,6 +26,7 @@ spec:
 {{ toYaml .Values.tolerations | indent 8 }}
       {{- end }}
       containers:
+      
       - name: {{ template "rabbitmq.fullname" . }}
         image: "{{ .Values.rabbitmqImage }}"
         imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
