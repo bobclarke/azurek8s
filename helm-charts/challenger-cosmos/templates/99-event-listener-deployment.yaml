@@ -1,0 +1,33 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: event-listener
+  labels:
+    app: event-listener
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: event-listener
+  template:
+    metadata:
+      labels:
+        app: event-listener
+    spec:
+      containers:
+      - name: rabbitmqlistenerack
+        image: shanepeckham/rabbitmqlistenerack:v6
+        ports:
+        - containerPort: 8080
+        env:
+        - name: TEAMNAME
+          value: "TEAM10"
+        - name: PROCESSENDPOINT
+          value: "http://fullfill-order.{{ .Values.namespace }}.svc.cluster.local:8080/v1/order/"
+        - name: RABBITMQ_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: rabbitmq-password
+              name: {{ template "rabbitmq.fullname" . }}
+        - name: RABBITMQHOST
+          value: "amqp://user:$(RABBITMQ_PASSWORD)@{{ template "rabbitmq.fullname" . }}.{{ .Values.namespace }}.svc.cluster.local:5672"

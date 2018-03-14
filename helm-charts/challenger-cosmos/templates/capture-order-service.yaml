@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: capture-order
+spec:
+  selector:
+    app: capture-order
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+  type: LoadBalancer
+  loadBalancerIP: 13.82.28.14

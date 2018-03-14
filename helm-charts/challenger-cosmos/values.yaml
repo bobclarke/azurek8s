@@ -1,0 +1,43 @@
+### COMMON ######################################################
+serviceType: ClusterIP
+namespace: challenger
+
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 100m
+
+persistence:
+  enabled: false
+  accessMode: ReadWriteOnce
+  size: 8Gi
+
+### MONGODB ######################################################
+mongodbImage: bitnami/mongodb:3.7.1-r0
+
+livenessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+readinessProbe:
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+
+
+### RABBITMQ ######################################################
+rabbitmqImage: bitnami/rabbitmq:3.7.3-r0
+rabbitmqUsername: user
+rabbitmqNodePort: 5672
+rabbitmqNodeType: stats
+rabbitmqNodeName: rabbit
+rabbitmqVhost: /
+rabbitmqManagerPort: 15672
+rabbitmqDiskFreeLimit: '"6GiB"'
+nodeSelector: {}
+tolerations: []
+affinity: {}
