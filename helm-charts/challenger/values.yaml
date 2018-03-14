@@ -12,7 +12,7 @@ persistence:
   size: 8Gi
 
 ### MONGODB ######################################################
-mongoImage: bitnami/mongodb:3.7.1-r0
+mongodbImage: bitnami/mongodb:3.7.1-r0
 
 livenessProbe:
   initialDelaySeconds: 30
@@ -29,7 +29,7 @@ readinessProbe:
 
 
 ### RABBITMQ ######################################################
-rabbitImage: bitnami/rabbitmq:3.7.3-r0
+rabbitmqImage: bitnami/rabbitmq:3.7.3-r0
 rabbitmqUsername: user
 rabbitmqNodePort: 5672
 rabbitmqNodeType: stats

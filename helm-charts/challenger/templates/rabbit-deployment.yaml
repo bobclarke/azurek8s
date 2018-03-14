@@ -27,7 +27,7 @@ spec:
       {{- end }}
       containers:
       - name: {{ template "rabbitmq.fullname" . }}
-        image: "{{ .Values.image }}"
+        image: "{{ .Values.rabbitmqImage }}"
         imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
         env:
         - name: RABBITMQ_USERNAME

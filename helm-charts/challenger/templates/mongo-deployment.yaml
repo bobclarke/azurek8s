@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: {{ template "mongodb.fullname" . }}
-        image: "{{ .Values.image }}"
+        image: "{{ .Values.mongodbImage }}"
         imagePullPolicy: {{ default "" .Values.imagePullPolicy | quote }}
         env:
         - name: MONGODB_ROOT_PASSWORD
