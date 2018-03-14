@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: azurefileonce
+  name: fullfill-order
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: azurefile
+  storageClassName: default
   resources:
     requests:
       storage: 50Gi
