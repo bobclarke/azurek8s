@@ -1,29 +1,29 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: capture-order
+  name: event-listener
   labels:
-    app: capture-order
+    app: event-listener
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: capture-order
+      app: event-listener
   template:
     metadata:
       labels:
-        app: capture-order
+        app: event-listener
     spec:
       containers:
-      - name: captureorderack
-        image: shanepeckham/captureorderack:v6
+      - name: rabbitmqlistenerack
+        image: shanepeckham/rabbitmqlistenerack:v6
         ports:
         - containerPort: 8080
         env:
         - name: TEAMNAME
           value: "TEAM10"
-        - name: MONGOHOST
-          value: "mongodb://your-moose-mongodb.default.svc.cluster.local"
+        - name: PROCESSENDPOINT
+          value: "http://fullfill-order.default.svc.cluster.local:8080/v1/order/"
         - name: RABBITMQ_PASSWORD
           valueFrom:
             secretKeyRef:
