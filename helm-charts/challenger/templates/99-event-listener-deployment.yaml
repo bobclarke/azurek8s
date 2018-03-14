@@ -5,7 +5,7 @@ metadata:
   labels:
     app: event-listener
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: event-listener
@@ -23,11 +23,11 @@ spec:
         - name: TEAMNAME
           value: "TEAM10"
         - name: PROCESSENDPOINT
-          value: "http://fullfill-order.default.svc.cluster.local:8080/v1/order/"
+          value: "http://fullfill-order.{{ .Values.namespace }}.svc.cluster.local:8080/v1/order/"
         - name: RABBITMQ_PASSWORD
           valueFrom:
             secretKeyRef:
               key: rabbitmq-password
-              name: brown-squid-rabbitmq
+              name: {{ template "rabbitmq.fullname" . }}
         - name: RABBITMQHOST
-          value: "amqp://user:$(RABBITMQ_PASSWORD)@brown-squid-rabbitmq.default.svc.cluster.local:5672"
+          value: "amqp://user:$(RABBITMQ_PASSWORD)@{{ template "rabbitmq.fullname" . }}.{{ .Values.namespace }}.svc.cluster.local:5672"

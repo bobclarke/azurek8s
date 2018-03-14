@@ -1,5 +1,6 @@
 ### COMMON ######################################################
 serviceType: ClusterIP
+namespace: challenger
 
 resources:
   requests:
@@ -7,7 +8,7 @@ resources:
     cpu: 100m
 
 persistence:
-  enabled: true
+  enabled: false
   accessMode: ReadWriteOnce
   size: 8Gi
 

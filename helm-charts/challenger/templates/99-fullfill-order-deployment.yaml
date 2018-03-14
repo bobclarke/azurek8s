@@ -27,7 +27,7 @@ spec:
         - name: TEAMNAME
           value: "TEAM10"
         - name: MONGOHOST
-          value: "mongodb://your-moose-mongodb.default.svc.cluster.local"
+          value: "mongodb://{{ template "mongodb.fullname" . }}.{{ .Values.namespace }}.svc.cluster.local"
         volumeMounts:
         - mountPath: "/orders"
           name: volume

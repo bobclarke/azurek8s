@@ -5,7 +5,7 @@ metadata:
   labels:
     app: capture-order
 spec:
-  replicas: 1
+  replicas: 8
   selector:
     matchLabels:
       app: capture-order
@@ -23,11 +23,11 @@ spec:
         - name: TEAMNAME
           value: "TEAM10"
         - name: MONGOHOST
-          value: "mongodb://your-moose-mongodb.default.svc.cluster.local"
+          value: "mongodb://{{ template "mongodb.fullname" . }}.{{ .Values.namespace }}.svc.cluster.local"
         - name: RABBITMQ_PASSWORD
           valueFrom:
             secretKeyRef:
               key: rabbitmq-password
-              name: brown-squid-rabbitmq
+              name: {{ template "rabbitmq.fullname" . }}
         - name: RABBITMQHOST
-          value: "amqp://user:$(RABBITMQ_PASSWORD)@brown-squid-rabbitmq.default.svc.cluster.local:5672"
+          value: "amqp://user:$(RABBITMQ_PASSWORD)@{{ template "rabbitmq.fullname" . }}.{{ .Values.namespace}}.svc.cluster.local:5672"
